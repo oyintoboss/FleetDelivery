@@ -1,0 +1,683 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DangoteAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="_tblComment">
+          <Key>
+            <PropertyRef Name="CommentId" />
+          </Key>
+          <Property Name="CommentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="FullName" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="Report" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Roles" Type="int" Nullable="false" />
+          <Property Name="RequestId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="_tblRequest">
+          <Key>
+            <PropertyRef Name="RequestId" />
+          </Key>
+          <Property Name="RequestId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleTo" Type="int" Nullable="false" />
+          <Property Name="RoleThru" Type="int" Nullable="false" />
+          <Property Name="Unit" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Subject" Type="varchar(max)" Nullable="false" />
+          <Property Name="Report" Type="varchar(max)" Nullable="false" />
+          <Property Name="Attachment" Type="varchar(max)" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="Vehicle" Type="varchar" MaxLength="15" />
+          <Property Name="Site" Type="varchar" MaxLength="15" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="_tblRole">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleType" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="ThreadId" Type="int" />
+          <Property Name="RequestId" Type="int" />
+        </EntityType>
+        <EntityType Name="_tblSite">
+          <Key>
+            <PropertyRef Name="SiteId" />
+          </Key>
+          <Property Name="SiteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SiteName" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="_tblthread">
+          <Key>
+            <PropertyRef Name="ThreadId" />
+          </Key>
+          <Property Name="ThreadId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RequestId" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="CommentId" Type="int" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="UnitId" Type="int" Nullable="false" />
+          <Property Name="VehicleId" Type="int" />
+          <Property Name="SiteId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="_tblUnit">
+          <Key>
+            <PropertyRef Name="UnitId" />
+          </Key>
+          <Property Name="UnitId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UnitType" Type="varchar" MaxLength="28" Nullable="false" />
+        </EntityType>
+        <EntityType Name="_tblUser">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Firstname" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Lastname" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Roles" Type="int" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Gender" Type="varchar" MaxLength="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="_tblVehicle">
+          <Key>
+            <PropertyRef Name="VehicleId" />
+          </Key>
+          <Property Name="VehicleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VehicleName" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="VehicleRegNum" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="VehicleFleetNum" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+        </EntityType>
+        <Association Name="FK__tblComment__tblRequest">
+          <End Role="_tblRequest" Type="Self._tblRequest" Multiplicity="1" />
+          <End Role="_tblComment" Type="Self._tblComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblRequest">
+              <PropertyRef Name="RequestId" />
+            </Principal>
+            <Dependent Role="_tblComment">
+              <PropertyRef Name="RequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblComment__tblUser">
+          <End Role="_tblUser" Type="Self._tblUser" Multiplicity="1" />
+          <End Role="_tblComment" Type="Self._tblComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="_tblComment">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblRequest__tblRole1">
+          <End Role="_tblRole" Type="Self._tblRole" Multiplicity="1" />
+          <End Role="_tblRequest" Type="Self._tblRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblRole">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="_tblRequest">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblRole__tblRole">
+          <End Role="_tblRole" Type="Self._tblRole" Multiplicity="1" />
+          <End Role="_tblRole1" Type="Self._tblRole" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="_tblRole">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="_tblRole1">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblthread__tblComment">
+          <End Role="_tblComment" Type="Self._tblComment" Multiplicity="1" />
+          <End Role="_tblthread" Type="Self._tblthread" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblComment">
+              <PropertyRef Name="CommentId" />
+            </Principal>
+            <Dependent Role="_tblthread">
+              <PropertyRef Name="CommentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblthread__tblRequest">
+          <End Role="_tblRequest" Type="Self._tblRequest" Multiplicity="1" />
+          <End Role="_tblthread" Type="Self._tblthread" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblRequest">
+              <PropertyRef Name="RequestId" />
+            </Principal>
+            <Dependent Role="_tblthread">
+              <PropertyRef Name="RequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblthread__tblRole">
+          <End Role="_tblRole" Type="Self._tblRole" Multiplicity="1" />
+          <End Role="_tblthread" Type="Self._tblthread" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblRole">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="_tblthread">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblthread__tblSite">
+          <End Role="_tblSite" Type="Self._tblSite" Multiplicity="1" />
+          <End Role="_tblthread" Type="Self._tblthread" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblSite">
+              <PropertyRef Name="SiteId" />
+            </Principal>
+            <Dependent Role="_tblthread">
+              <PropertyRef Name="SiteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblthread__tblUnit">
+          <End Role="_tblUnit" Type="Self._tblUnit" Multiplicity="1" />
+          <End Role="_tblthread" Type="Self._tblthread" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblUnit">
+              <PropertyRef Name="UnitId" />
+            </Principal>
+            <Dependent Role="_tblthread">
+              <PropertyRef Name="UnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblVehicle__tblUser">
+          <End Role="_tblUser" Type="Self._tblUser" Multiplicity="0..1" />
+          <End Role="_tblVehicle" Type="Self._tblVehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="_tblVehicle">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DangoteAppModelStoreContainer">
+          <EntitySet Name="_tblComment" EntityType="Self._tblComment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblRequest" EntityType="Self._tblRequest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblRole" EntityType="Self._tblRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblSite" EntityType="Self._tblSite" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblthread" EntityType="Self._tblthread" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblUnit" EntityType="Self._tblUnit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblUser" EntityType="Self._tblUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblVehicle" EntityType="Self._tblVehicle" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tblComment__tblRequest" Association="Self.FK__tblComment__tblRequest">
+            <End Role="_tblRequest" EntitySet="_tblRequest" />
+            <End Role="_tblComment" EntitySet="_tblComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblComment__tblUser" Association="Self.FK__tblComment__tblUser">
+            <End Role="_tblUser" EntitySet="_tblUser" />
+            <End Role="_tblComment" EntitySet="_tblComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblRequest__tblRole1" Association="Self.FK__tblRequest__tblRole1">
+            <End Role="_tblRole" EntitySet="_tblRole" />
+            <End Role="_tblRequest" EntitySet="_tblRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblRole__tblRole" Association="Self.FK__tblRole__tblRole">
+            <End Role="_tblRole" EntitySet="_tblRole" />
+            <End Role="_tblRole1" EntitySet="_tblRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblthread__tblComment" Association="Self.FK__tblthread__tblComment">
+            <End Role="_tblComment" EntitySet="_tblComment" />
+            <End Role="_tblthread" EntitySet="_tblthread" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblthread__tblRequest" Association="Self.FK__tblthread__tblRequest">
+            <End Role="_tblRequest" EntitySet="_tblRequest" />
+            <End Role="_tblthread" EntitySet="_tblthread" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblthread__tblRole" Association="Self.FK__tblthread__tblRole">
+            <End Role="_tblRole" EntitySet="_tblRole" />
+            <End Role="_tblthread" EntitySet="_tblthread" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblthread__tblSite" Association="Self.FK__tblthread__tblSite">
+            <End Role="_tblSite" EntitySet="_tblSite" />
+            <End Role="_tblthread" EntitySet="_tblthread" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblthread__tblUnit" Association="Self.FK__tblthread__tblUnit">
+            <End Role="_tblUnit" EntitySet="_tblUnit" />
+            <End Role="_tblthread" EntitySet="_tblthread" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblVehicle__tblUser" Association="Self.FK__tblVehicle__tblUser">
+            <End Role="_tblUser" EntitySet="_tblUser" />
+            <End Role="_tblVehicle" EntitySet="_tblVehicle" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DangoteAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C_tblComment">
+          <Key>
+            <PropertyRef Name="CommentId" />
+          </Key>
+          <Property Name="CommentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FullName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Report" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Roles" Type="Int32" Nullable="false" />
+          <Property Name="RequestId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="C_tblRequest" Relationship="Self.FK__tblComment__tblRequest" FromRole="C_tblComment" ToRole="C_tblRequest" />
+          <NavigationProperty Name="C_tblUser" Relationship="Self.FK__tblComment__tblUser" FromRole="C_tblComment" ToRole="C_tblUser" />
+          <NavigationProperty Name="C_tblthread" Relationship="Self.FK__tblthread__tblComment" FromRole="C_tblComment" ToRole="C_tblthread" />
+        </EntityType>
+        <EntityType Name="C_tblRequest">
+          <Key>
+            <PropertyRef Name="RequestId" />
+          </Key>
+          <Property Name="RequestId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleTo" Type="Int32" Nullable="false" />
+          <Property Name="RoleThru" Type="Int32" Nullable="false" />
+          <Property Name="Unit" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Report" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Attachment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="Vehicle" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Site" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="C_tblComment" Relationship="Self.FK__tblComment__tblRequest" FromRole="C_tblRequest" ToRole="C_tblComment" />
+          <NavigationProperty Name="C_tblRole" Relationship="Self.FK__tblRequest__tblRole1" FromRole="C_tblRequest" ToRole="C_tblRole" />
+          <NavigationProperty Name="C_tblthread" Relationship="Self.FK__tblthread__tblRequest" FromRole="C_tblRequest" ToRole="C_tblthread" />
+        </EntityType>
+        <EntityType Name="C_tblRole">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleType" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ThreadId" Type="Int32" />
+          <Property Name="RequestId" Type="Int32" />
+          <NavigationProperty Name="C_tblRequest" Relationship="Self.FK__tblRequest__tblRole1" FromRole="C_tblRole" ToRole="C_tblRequest" />
+          <NavigationProperty Name="C_tblRole1" Relationship="Self.FK__tblRole__tblRole" FromRole="C_tblRole" ToRole="C_tblRole1" />
+          <NavigationProperty Name="C_tblRole2" Relationship="Self.FK__tblRole__tblRole" FromRole="C_tblRole1" ToRole="C_tblRole" />
+          <NavigationProperty Name="C_tblthread" Relationship="Self.FK__tblthread__tblRole" FromRole="C_tblRole" ToRole="C_tblthread" />
+        </EntityType>
+        <EntityType Name="C_tblSite">
+          <Key>
+            <PropertyRef Name="SiteId" />
+          </Key>
+          <Property Name="SiteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SiteName" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="C_tblthread" Relationship="Self.FK__tblthread__tblSite" FromRole="C_tblSite" ToRole="C_tblthread" />
+        </EntityType>
+        <EntityType Name="C_tblthread">
+          <Key>
+            <PropertyRef Name="ThreadId" />
+          </Key>
+          <Property Name="ThreadId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RequestId" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="CommentId" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="UnitId" Type="Int32" Nullable="false" />
+          <Property Name="VehicleId" Type="Int32" />
+          <Property Name="SiteId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="C_tblComment" Relationship="Self.FK__tblthread__tblComment" FromRole="C_tblthread" ToRole="C_tblComment" />
+          <NavigationProperty Name="C_tblRequest" Relationship="Self.FK__tblthread__tblRequest" FromRole="C_tblthread" ToRole="C_tblRequest" />
+          <NavigationProperty Name="C_tblRole" Relationship="Self.FK__tblthread__tblRole" FromRole="C_tblthread" ToRole="C_tblRole" />
+          <NavigationProperty Name="C_tblSite" Relationship="Self.FK__tblthread__tblSite" FromRole="C_tblthread" ToRole="C_tblSite" />
+          <NavigationProperty Name="C_tblUnit" Relationship="Self.FK__tblthread__tblUnit" FromRole="C_tblthread" ToRole="C_tblUnit" />
+        </EntityType>
+        <EntityType Name="C_tblUnit">
+          <Key>
+            <PropertyRef Name="UnitId" />
+          </Key>
+          <Property Name="UnitId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UnitType" Type="String" MaxLength="28" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="C_tblthread" Relationship="Self.FK__tblthread__tblUnit" FromRole="C_tblUnit" ToRole="C_tblthread" />
+        </EntityType>
+        <EntityType Name="C_tblUser">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Firstname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Lastname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Roles" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Gender" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="C_tblComment" Relationship="Self.FK__tblComment__tblUser" FromRole="C_tblUser" ToRole="C_tblComment" />
+          <NavigationProperty Name="C_tblVehicle" Relationship="Self.FK__tblVehicle__tblUser" FromRole="C_tblUser" ToRole="C_tblVehicle" />
+        </EntityType>
+        <EntityType Name="C_tblVehicle">
+          <Key>
+            <PropertyRef Name="VehicleId" />
+          </Key>
+          <Property Name="VehicleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VehicleName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VehicleRegNum" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VehicleFleetNum" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserId" Type="Int32" />
+          <NavigationProperty Name="C_tblUser" Relationship="Self.FK__tblVehicle__tblUser" FromRole="C_tblVehicle" ToRole="C_tblUser" />
+        </EntityType>
+        <Association Name="FK__tblComment__tblRequest">
+          <End Role="C_tblRequest" Type="Self.C_tblRequest" Multiplicity="1" />
+          <End Role="C_tblComment" Type="Self.C_tblComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblRequest">
+              <PropertyRef Name="RequestId" />
+            </Principal>
+            <Dependent Role="C_tblComment">
+              <PropertyRef Name="RequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblComment__tblUser">
+          <End Role="C_tblUser" Type="Self.C_tblUser" Multiplicity="1" />
+          <End Role="C_tblComment" Type="Self.C_tblComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="C_tblComment">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblthread__tblComment">
+          <End Role="C_tblComment" Type="Self.C_tblComment" Multiplicity="1" />
+          <End Role="C_tblthread" Type="Self.C_tblthread" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblComment">
+              <PropertyRef Name="CommentId" />
+            </Principal>
+            <Dependent Role="C_tblthread">
+              <PropertyRef Name="CommentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblRequest__tblRole1">
+          <End Role="C_tblRole" Type="Self.C_tblRole" Multiplicity="1" />
+          <End Role="C_tblRequest" Type="Self.C_tblRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblRole">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="C_tblRequest">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblthread__tblRequest">
+          <End Role="C_tblRequest" Type="Self.C_tblRequest" Multiplicity="1" />
+          <End Role="C_tblthread" Type="Self.C_tblthread" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblRequest">
+              <PropertyRef Name="RequestId" />
+            </Principal>
+            <Dependent Role="C_tblthread">
+              <PropertyRef Name="RequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblRole__tblRole">
+          <End Role="C_tblRole" Type="Self.C_tblRole" Multiplicity="1" />
+          <End Role="C_tblRole1" Type="Self.C_tblRole" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblRole">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="C_tblRole1">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblthread__tblRole">
+          <End Role="C_tblRole" Type="Self.C_tblRole" Multiplicity="1" />
+          <End Role="C_tblthread" Type="Self.C_tblthread" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblRole">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="C_tblthread">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblthread__tblSite">
+          <End Role="C_tblSite" Type="Self.C_tblSite" Multiplicity="1" />
+          <End Role="C_tblthread" Type="Self.C_tblthread" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblSite">
+              <PropertyRef Name="SiteId" />
+            </Principal>
+            <Dependent Role="C_tblthread">
+              <PropertyRef Name="SiteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblthread__tblUnit">
+          <End Role="C_tblUnit" Type="Self.C_tblUnit" Multiplicity="1" />
+          <End Role="C_tblthread" Type="Self.C_tblthread" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblUnit">
+              <PropertyRef Name="UnitId" />
+            </Principal>
+            <Dependent Role="C_tblthread">
+              <PropertyRef Name="UnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblVehicle__tblUser">
+          <End Role="C_tblUser" Type="Self.C_tblUser" Multiplicity="0..1" />
+          <End Role="C_tblVehicle" Type="Self.C_tblVehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="C_tblVehicle">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DangoteAppEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C_tblComment" EntityType="Self.C_tblComment" />
+          <EntitySet Name="C_tblRequest" EntityType="Self.C_tblRequest" />
+          <EntitySet Name="C_tblRole" EntityType="Self.C_tblRole" />
+          <EntitySet Name="C_tblSite" EntityType="Self.C_tblSite" />
+          <EntitySet Name="C_tblthread" EntityType="Self.C_tblthread" />
+          <EntitySet Name="C_tblUnit" EntityType="Self.C_tblUnit" />
+          <EntitySet Name="C_tblUser" EntityType="Self.C_tblUser" />
+          <EntitySet Name="C_tblVehicle" EntityType="Self.C_tblVehicle" />
+          <AssociationSet Name="FK__tblComment__tblRequest" Association="Self.FK__tblComment__tblRequest">
+            <End Role="C_tblRequest" EntitySet="C_tblRequest" />
+            <End Role="C_tblComment" EntitySet="C_tblComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblComment__tblUser" Association="Self.FK__tblComment__tblUser">
+            <End Role="C_tblUser" EntitySet="C_tblUser" />
+            <End Role="C_tblComment" EntitySet="C_tblComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblthread__tblComment" Association="Self.FK__tblthread__tblComment">
+            <End Role="C_tblComment" EntitySet="C_tblComment" />
+            <End Role="C_tblthread" EntitySet="C_tblthread" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblRequest__tblRole1" Association="Self.FK__tblRequest__tblRole1">
+            <End Role="C_tblRole" EntitySet="C_tblRole" />
+            <End Role="C_tblRequest" EntitySet="C_tblRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblthread__tblRequest" Association="Self.FK__tblthread__tblRequest">
+            <End Role="C_tblRequest" EntitySet="C_tblRequest" />
+            <End Role="C_tblthread" EntitySet="C_tblthread" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblRole__tblRole" Association="Self.FK__tblRole__tblRole">
+            <End Role="C_tblRole" EntitySet="C_tblRole" />
+            <End Role="C_tblRole1" EntitySet="C_tblRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblthread__tblRole" Association="Self.FK__tblthread__tblRole">
+            <End Role="C_tblRole" EntitySet="C_tblRole" />
+            <End Role="C_tblthread" EntitySet="C_tblthread" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblthread__tblSite" Association="Self.FK__tblthread__tblSite">
+            <End Role="C_tblSite" EntitySet="C_tblSite" />
+            <End Role="C_tblthread" EntitySet="C_tblthread" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblthread__tblUnit" Association="Self.FK__tblthread__tblUnit">
+            <End Role="C_tblUnit" EntitySet="C_tblUnit" />
+            <End Role="C_tblthread" EntitySet="C_tblthread" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblVehicle__tblUser" Association="Self.FK__tblVehicle__tblUser">
+            <End Role="C_tblUser" EntitySet="C_tblUser" />
+            <End Role="C_tblVehicle" EntitySet="C_tblVehicle" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DangoteAppModelStoreContainer" CdmEntityContainer="DangoteAppEntities">
+          <EntitySetMapping Name="C_tblComment">
+            <EntityTypeMapping TypeName="DangoteAppModel.C_tblComment">
+              <MappingFragment StoreEntitySet="_tblComment">
+                <ScalarProperty Name="CommentId" ColumnName="CommentId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Report" ColumnName="Report" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Roles" ColumnName="Roles" />
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblRequest">
+            <EntityTypeMapping TypeName="DangoteAppModel.C_tblRequest">
+              <MappingFragment StoreEntitySet="_tblRequest">
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+                <ScalarProperty Name="RoleTo" ColumnName="RoleTo" />
+                <ScalarProperty Name="RoleThru" ColumnName="RoleThru" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Report" ColumnName="Report" />
+                <ScalarProperty Name="Attachment" ColumnName="Attachment" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Vehicle" ColumnName="Vehicle" />
+                <ScalarProperty Name="Site" ColumnName="Site" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblRole">
+            <EntityTypeMapping TypeName="DangoteAppModel.C_tblRole">
+              <MappingFragment StoreEntitySet="_tblRole">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleType" ColumnName="RoleType" />
+                <ScalarProperty Name="ThreadId" ColumnName="ThreadId" />
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblSite">
+            <EntityTypeMapping TypeName="DangoteAppModel.C_tblSite">
+              <MappingFragment StoreEntitySet="_tblSite">
+                <ScalarProperty Name="SiteId" ColumnName="SiteId" />
+                <ScalarProperty Name="SiteName" ColumnName="SiteName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblthread">
+            <EntityTypeMapping TypeName="DangoteAppModel.C_tblthread">
+              <MappingFragment StoreEntitySet="_tblthread">
+                <ScalarProperty Name="ThreadId" ColumnName="ThreadId" />
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="CommentId" ColumnName="CommentId" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+                <ScalarProperty Name="VehicleId" ColumnName="VehicleId" />
+                <ScalarProperty Name="SiteId" ColumnName="SiteId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblUnit">
+            <EntityTypeMapping TypeName="DangoteAppModel.C_tblUnit">
+              <MappingFragment StoreEntitySet="_tblUnit">
+                <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+                <ScalarProperty Name="UnitType" ColumnName="UnitType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblUser">
+            <EntityTypeMapping TypeName="DangoteAppModel.C_tblUser">
+              <MappingFragment StoreEntitySet="_tblUser">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Roles" ColumnName="Roles" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblVehicle">
+            <EntityTypeMapping TypeName="DangoteAppModel.C_tblVehicle">
+              <MappingFragment StoreEntitySet="_tblVehicle">
+                <ScalarProperty Name="VehicleId" ColumnName="VehicleId" />
+                <ScalarProperty Name="VehicleName" ColumnName="VehicleName" />
+                <ScalarProperty Name="VehicleRegNum" ColumnName="VehicleRegNum" />
+                <ScalarProperty Name="VehicleFleetNum" ColumnName="VehicleFleetNum" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

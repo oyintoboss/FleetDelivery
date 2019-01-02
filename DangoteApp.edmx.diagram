@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="76c43e9669b54f73b782cbe69db52b0b" Name="Diagram1">
+        <EntityTypeShape EntityType="DangoteAppModel.C_tblComment" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DangoteAppModel.C_tblRequest" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DangoteAppModel.C_tblRole" Width="1.5" PointX="1.5" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DangoteAppModel.C_tblSite" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DangoteAppModel.C_tblthread" Width="1.5" PointX="5.25" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DangoteAppModel.C_tblUnit" Width="1.5" PointX="3" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DangoteAppModel.C_tblUser" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="DangoteAppModel.C_tblVehicle" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
+        <AssociationConnector Association="DangoteAppModel.FK__tblComment__tblRequest" ManuallyRouted="false" />
+        <AssociationConnector Association="DangoteAppModel.FK__tblComment__tblUser" ManuallyRouted="false" />
+        <AssociationConnector Association="DangoteAppModel.FK__tblthread__tblComment" ManuallyRouted="false" />
+        <AssociationConnector Association="DangoteAppModel.FK__tblRequest__tblRole1" ManuallyRouted="false" />
+        <AssociationConnector Association="DangoteAppModel.FK__tblthread__tblRequest" ManuallyRouted="false" />
+        <AssociationConnector Association="DangoteAppModel.FK__tblRole__tblRole" ManuallyRouted="false" />
+        <AssociationConnector Association="DangoteAppModel.FK__tblthread__tblRole" ManuallyRouted="false" />
+        <AssociationConnector Association="DangoteAppModel.FK__tblthread__tblSite" ManuallyRouted="false" />
+        <AssociationConnector Association="DangoteAppModel.FK__tblthread__tblUnit" ManuallyRouted="false" />
+        <AssociationConnector Association="DangoteAppModel.FK__tblVehicle__tblUser" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
